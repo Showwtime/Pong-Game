@@ -40,7 +40,6 @@ rightCreese.setAttributeNS(null, "x", 453);
 rightCreese.setAttributeNS(null, "y", 64);
 rightCreese.setAttributeNS(null, "width", 60);
 rightCreese.setAttributeNS(null, "height", 128);
-// rightCreese.setAttributeNS(null, "r", 60);
 rightCreese.setAttributeNS(null, "fill", "#353535");
 rightCreese.setAttributeNS(null, "stroke", "white");
 rightCreese.setAttributeNS(null, "stroke-width", "2");
