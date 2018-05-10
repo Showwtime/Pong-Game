@@ -4,58 +4,57 @@ import Paddle from "./Paddle";
 import Ball from "./Ball";
 
 export default class Game {
+  constructor(element, width, height) {
+    this.element = element;
+    this.width = width;
+    this.height = height;
+    this.gameElement = document.getElementById(this.element);
+    this.paddleWidth = 8;
+    this.paddleHeight = 56;
+    this.boardGap = 8;
+    this.radius = 8;
 
-	constructor(element, width, height) {
-		this.element = element;
-		this.width = width;
-		this.height = height;
-		
-		this.gameElement = document.getElementById(this.element);
+    this.board = new Board(this.width, this.height);
 
-		this.board = new Board(this.width, this.height);
-		this.ball = new Ball (8, this.width, this.height);
-			
-			this.paddleWidth = 8;
-			this.paddleHeight = 56;
-			this.boardGap = 8;
-		
-		this.paddle1 = new Paddle(
-			this.height,
-			this.paddleWidth,
-			this.paddleHeight,
-			this.boardGap,
-				((this.height - this.paddleHeight) /2),
-			KEYS.a,
-			KEYS.z
-			);
+    this.paddle1 = new Paddle(
+      this.height,
+      this.paddleWidth,
+      this.paddleHeight,
+      this.boardGap,
+      (this.height - this.paddleHeight) / 2,
+      KEYS.a,
+      KEYS.z
+    );
 
-		this.paddle2 = new Paddle(
-			this.height,
-			this.paddleWidth,
-			this.paddleHeight,
-				((this.width - this.boardGap - this.paddleWidth)),
-				((this.height - this.paddleHeight) /2),
-			KEYS.up,
-			KEYS.down
-			);
+    this.paddle2 = new Paddle(
+      this.height,
+      this.paddleWidth,
+      this.paddleHeight,
+      this.width - this.boardGap - this.paddleWidth,
+      (this.height - this.paddleHeight) / 2,
+      KEYS.up,
+      KEYS.down
+    );
 
-		// Other code goes here...
-	}
+    this.ball = new Ball(this.radius, this.width, this.height);
 
-	render() {
-		// Fix to clear element
-		this.gameElement.innerHTML = "";
-		// Renders basic SVG view
-		let svg = document.createElementNS(SVG_NS, "svg");
-svg.setAttributeNS(null, "width", this.width);
-svg.setAttributeNS(null, "height", this.height);
-svg.setAttributeNS(null, "viewBox", `0 0 ${this.width} ${this.height}`);
+    // Other code goes here...
+  }
 
-this.gameElement.appendChild(svg);
+  render() {
+    // Fix to clear element
+    this.gameElement.innerHTML = "";
+    // Renders basic SVG view
+    let svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttributeNS(null, "width", this.width);
+    svg.setAttributeNS(null, "height", this.height);
+    svg.setAttributeNS(null, "viewBox", `0 0 ${this.width} ${this.height}`);
 
-this.board.render(svg);
-this.paddle1.render(svg);
-this.paddle2.render(svg);
-this.ball.render(svg, this.player1, this.player2);	
-	}
+    this.gameElement.appendChild(svg);
+
+    this.board.render(svg);
+    this.paddle1.render(svg);
+    this.paddle2.render(svg);
+    this.ball.render(svg, this.player1, this.player2);
+  }
 }
