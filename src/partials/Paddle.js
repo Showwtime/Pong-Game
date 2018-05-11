@@ -1,6 +1,6 @@
 import { SVG_NS } from "../settings";
 export default class Paddle {
-  constructor(boardHeight, width, height, x, y, up, down) {
+  constructor(boardHeight, width, height, x, y, up, down, right, left, right2, left2) {
     this.boardHeight = boardHeight;
     this.width = width;
     this.height = height;
@@ -17,18 +17,45 @@ export default class Paddle {
         case down:
           this.down();
           break;
+        case right:
+          this.right();
+          break;
+        case left:
+          this.left();
+          break;
+        case right2:
+          this.right2();
+          break;
+        case left2:
+          this.left2();
+          break;
       }
     });
   } //end of constructor
 
   up() {
-    this.y = Math.max(5, this.y - this.speed);
+    this.y = Math.max(65, this.y - this.speed);
   }
 
   down() {
-    this.y = Math.min(this.boardHeight - this.height - 5, this.y + this.speed);
+    this.y = Math.min(this.boardHeight - this.height - 65, this.y + this.speed);
   }
 
+  right() {
+      this.x = Math.max(500, this.x - this.speed);
+  }
+
+  left() {
+      this.x = Math.min(455, this.x + this.speed);
+  }
+
+  right2() {
+    this.x = Math.max(57, this.x - this.speed);
+  }
+
+  left2() {
+    this.x = Math.min(12, this.x + this.speed);
+  }
   // ..
 
   render(svg) {

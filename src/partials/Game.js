@@ -13,8 +13,11 @@ export default class Game {
     this.paddleHeight = 56;
     this.boardGap = 8;
     this.radius = 8;
-
-    this.board = new Board(this.width, this.height);
+// ===============================================================================
+    this.board = new Board(
+		this.width, 
+		this.height
+	);
 
     this.paddle1 = new Paddle(
       this.height,
@@ -23,7 +26,9 @@ export default class Game {
       this.boardGap,
       (this.height - this.paddleHeight) / 2,
       KEYS.a,
-      KEYS.z
+	  KEYS.z,
+	  KEYS.x,
+	  KEYS.shift
     );
 
     this.paddle2 = new Paddle(
@@ -33,10 +38,16 @@ export default class Game {
       this.width - this.boardGap - this.paddleWidth,
       (this.height - this.paddleHeight) / 2,
       KEYS.up,
-      KEYS.down
+	  KEYS.down,
+	  KEYS.right,
+	  KEYS.left
     );
 
-    this.ball = new Ball(this.radius, this.width, this.height);
+    this.ball = new Ball(
+		this.radius, 
+		this.width, 
+		this.height
+	);
 
     // Other code goes here...
   }
@@ -55,6 +66,6 @@ export default class Game {
     this.board.render(svg);
     this.paddle1.render(svg);
     this.paddle2.render(svg);
-    this.ball.render(svg, this.player1, this.player2);
+    this.ball.render(svg, this.paddle1, this.paddle2);
   }
 }
