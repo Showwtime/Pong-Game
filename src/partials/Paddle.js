@@ -50,11 +50,11 @@ export default class Paddle {
   }
 
   right2() {
-    this.x = Math.max(57, this.x - this.speed);
+    this.x = Math.max(-455, this.x - this.speed);
   }
 
   left2() {
-    this.x = Math.min(12, this.x + this.speed);
+    this.x = Math.min(-500, this.x + this.speed);
   }
   // Ball collision with paddles =======================================
   coordinates(x, y, width, height){
