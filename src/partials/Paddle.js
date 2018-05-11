@@ -31,7 +31,7 @@ export default class Paddle {
           break;
       }
     });
-  } //end of constructor
+  } //end of constructor ==============================================
 
   up() {
     this.y = Math.max(65, this.y - this.speed);
@@ -42,11 +42,11 @@ export default class Paddle {
   }
 
   right() {
-      this.x = Math.max(500, this.x - this.speed);
+    this.x = Math.max(500, this.x - this.speed);
   }
 
   left() {
-      this.x = Math.min(455, this.x + this.speed);
+    this.x = Math.min(455, this.x + this.speed);
   }
 
   right2() {
@@ -55,6 +55,14 @@ export default class Paddle {
 
   left2() {
     this.x = Math.min(12, this.x + this.speed);
+  }
+  // Ball collision with paddles =======================================
+  coordinates(x, y, width, height){
+      let leftX = x;
+      let rightX = x + width;
+      let topY = y;
+      let bottomY = y + height;
+      return [leftX, rightX, topY, bottomY];
   }
   // ..
 

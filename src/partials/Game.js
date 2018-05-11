@@ -12,9 +12,11 @@ export default class Game {
     this.paddleWidth = 8;
     this.paddleHeight = 56;
     this.boardGap = 8;
-    this.radius = 8;
-// ===============================================================================
-    this.board = new Board(
+	this.radius = 8;
+	this.pause = false;
+//====================================================================
+	
+	this.board = new Board(
 		this.width, 
 		this.height
 	);
@@ -26,9 +28,9 @@ export default class Game {
       this.boardGap,
       (this.height - this.paddleHeight) / 2,
       KEYS.a,
-	  KEYS.z,
-	  KEYS.x,
-	  KEYS.shift
+      KEYS.z,
+      KEYS.x,
+      KEYS.shift
     );
 
     this.paddle2 = new Paddle(
@@ -38,9 +40,9 @@ export default class Game {
       this.width - this.boardGap - this.paddleWidth,
       (this.height - this.paddleHeight) / 2,
       KEYS.up,
-	  KEYS.down,
-	  KEYS.right,
-	  KEYS.left
+      KEYS.down,
+      KEYS.right,
+      KEYS.left
     );
 
     this.ball = new Ball(
@@ -49,13 +51,21 @@ export default class Game {
 		this.height
 	);
 
-    // Other code goes here...
-  }
+    document.addEventListener("keydown", event => {
+      if(event.key == KEYS.spaceBar) {
+          this.pause = !this.pause;
+      }
+    });
+  } // end of constructor
 
   render() {
+
+	if(this.pause){
+		return;
+	}
     // Fix to clear element
     this.gameElement.innerHTML = "";
-    // Renders basic SVG view
+	// Renders basic SVG view
     let svg = document.createElementNS(SVG_NS, "svg");
     svg.setAttributeNS(null, "width", this.width);
     svg.setAttributeNS(null, "height", this.height);
@@ -66,6 +76,7 @@ export default class Game {
     this.board.render(svg);
     this.paddle1.render(svg);
     this.paddle2.render(svg);
-    this.ball.render(svg, this.paddle1, this.paddle2);
+	this.ball.render(svg, this.paddle1, this.paddle2);
+	
   }
 }
