@@ -1,6 +1,18 @@
 import { SVG_NS } from "../settings";
 export default class Paddle {
-  constructor(boardHeight, width, height, x, y, up, down, right, left, right2, left2) {
+  constructor(
+    boardHeight,
+    width,
+    height,
+    x,
+    y,
+    up,
+    down,
+    right,
+    left,
+    xleft,
+    xright
+  ) {
     this.boardHeight = boardHeight;
     this.width = width;
     this.height = height;
@@ -8,7 +20,8 @@ export default class Paddle {
     this.y = y;
     this.speed = 16;
     this.score = 0;
-
+    this.xleft = xleft;
+    this.xright = xright;
     document.addEventListener("keydown", event => {
       switch (event.key) {
         case up:
@@ -23,48 +36,40 @@ export default class Paddle {
         case left:
           this.left();
           break;
-        case right2:
-          this.right2();
-          break;
-        case left2:
-          this.left2();
-          break;
       }
     });
   } //end of constructor ==============================================
 
+  // Paddle movement ================================================
   up() {
-    this.y = Math.max(65, this.y - this.speed);
+    this.y = Math.max(5, this.y - this.speed);
   }
 
   down() {
-    this.y = Math.min(this.boardHeight - this.height - 65, this.y + this.speed);
+    this.y = Math.min(this.boardHeight - this.height - 5, this.y + this.speed);
   }
 
   right() {
-    this.x = Math.max(500, this.x - this.speed);
+    // this.xright = Math.max( +500, this.x - this.speed);
+    if (!this.x >= 0) {
+      this.x += this.speed;
+    }
   }
-
+  
   left() {
-    this.x = Math.min(455, this.x + this.speed);
-  }
-
-  right2() {
-    this.x = Math.max(-455, this.x - this.speed);
-  }
-
-  left2() {
-    this.x = Math.min(-500, this.x + this.speed);
+    // this.xleft = Math.min(5, this.x + this.speed);
+    if (!this.x <= 0) {
+      this.x -= this.speed;
+    }
   }
   // Ball collision with paddles =======================================
-  coordinates(x, y, width, height){
-      let leftX = x;
-      let rightX = x + width;
-      let topY = y;
-      let bottomY = y + height;
-      return [leftX, rightX, topY, bottomY];
+  coordinates(x, y, width, height) {
+    let leftX = x;
+    let rightX = x + width;
+    let topY = y;
+    let bottomY = y + height;
+    return [leftX, rightX, topY, bottomY];
   }
-  // ..
 
   render(svg) {
     // Paddle
@@ -72,6 +77,8 @@ export default class Paddle {
     paddle.setAttributeNS(null, "width", this.width);
     paddle.setAttributeNS(null, "height", this.height);
     paddle.setAttributeNS(null, "fill", "#FFB81C");
+    paddle.setAttributeNS(null, "stroke", "#6413BF");
+    paddle.setAttributeNS(null, "stroke-width", "4");
     paddle.setAttributeNS(null, "x", this.x);
     paddle.setAttributeNS(null, "y", this.y);
 

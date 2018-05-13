@@ -13,14 +13,14 @@ export default class Game {
     this.paddleWidth = 8;
     this.paddleHeight = 56;
     this.boardGap = 8;
-	this.radius = 8;
-	this.pause = false;
-//====================================================================
-	
-	this.board = new Board(
-		this.width, 
-		this.height
-	);
+    this.radius = 8;
+    this.pause = false;
+    //====================================================================
+
+    this.board = new Board(
+      this.width, 
+      this.height
+    );
 
     this.paddle1 = new Paddle(
       this.height,
@@ -44,32 +44,37 @@ export default class Game {
       KEYS.down,
       KEYS.right,
       KEYS.left
-	);
+    );
 
-	this.score1 = new Score(this.width / 2 - 50, 30, 30);
-	this.score2 = new Score(this.width / 2 + 25, 30, 30);
+    this.score1 = new Score(this.width / 2 - 50, 30, 30);
+    this.score2 = new Score(this.width / 2 + 25, 30, 30);
 
-    this.ball = new Ball(
-		this.radius, 
-		this.width, 
-		this.height
-	);
+    this.ball1 = new Ball(
+      this.radius, 
+      this.width, 
+      this.height
+    );
+
+      this.ball2 = new Ball(
+        this.radius, 
+        this.width, 
+        this.height
+    );
 
     document.addEventListener("keydown", event => {
-      if(event.key == KEYS.spaceBar) {
-          this.pause = !this.pause;
+      if (event.key == KEYS.spaceBar) {
+        this.pause = !this.pause;
       }
     });
   } // end of constructor
 
   render() {
-
-	if(this.pause){
-		return;
-	}
+    if (this.pause) {
+      return;
+    }
     // Fix to clear element
     this.gameElement.innerHTML = "";
-	// Renders basic SVG view
+    // Renders basic SVG view
     let svg = document.createElementNS(SVG_NS, "svg");
     svg.setAttributeNS(null, "width", this.width);
     svg.setAttributeNS(null, "height", this.height);
@@ -78,10 +83,12 @@ export default class Game {
     this.gameElement.appendChild(svg);
 
     this.board.render(svg);
+    this.score1.render(svg, this.paddle1.score);
+    this.score2.render(svg, this.paddle2.score);
     this.paddle1.render(svg);
     this.paddle2.render(svg);
-	this.ball.render(svg, this.paddle1, this.paddle2);
-	this.score1.render(svg, this.paddle1.score);
-	this.score2.render(svg, this.paddle2.score);	
+    this.ball1.render(svg, this.paddle1, this.paddle2);
+    this.ball2.render(svg, this.paddle1, this.paddle2);
+    
   }
 }

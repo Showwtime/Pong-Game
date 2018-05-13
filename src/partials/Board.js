@@ -10,7 +10,9 @@ export default class Board {
     let rect = document.createElementNS(SVG_NS, "rect");
     rect.setAttributeNS(null, "width", this.width);
     rect.setAttributeNS(null, "height", this.height);
-    rect.setAttributeNS(null, "fill", "#353535");
+    rect.setAttributeNS(null, "fill", "#196f0c");
+    rect.setAttributeNS(null, "stroke", "#6413BF");
+    rect.setAttributeNS(null, "stroke-width", "9");
 
     // Center Line
     let line = document.createElementNS(SVG_NS, "line");
@@ -28,7 +30,7 @@ export default class Board {
     leftCreese.setAttributeNS(null, "y", 64);
     leftCreese.setAttributeNS(null, "width", 60);
     leftCreese.setAttributeNS(null, "height", 128);
-    leftCreese.setAttributeNS(null, "fill", "#353535");
+    leftCreese.setAttributeNS(null, "fill", "#269B15");
     leftCreese.setAttributeNS(null, "stroke", "white");
     leftCreese.setAttributeNS(null, "stroke-width", "2");
     leftCreese.setAttributeNS(null, "stroke-dasharray", "15, 5");
@@ -39,7 +41,7 @@ export default class Board {
     rightCreese.setAttributeNS(null, "y", 64);
     rightCreese.setAttributeNS(null, "width", 60);
     rightCreese.setAttributeNS(null, "height", 128);
-    rightCreese.setAttributeNS(null, "fill", "#353535");
+    rightCreese.setAttributeNS(null, "fill", "#269B15");
     rightCreese.setAttributeNS(null, "stroke", "white");
     rightCreese.setAttributeNS(null, "stroke-width", "2");
     rightCreese.setAttributeNS(null, "stroke-dasharray", "15, 5");

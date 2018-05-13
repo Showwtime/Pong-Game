@@ -7,8 +7,9 @@ export default class Ball {
     this.direction = 1;
 
     this.reset();
-    this.ping = new Audio("public/sounds/pong-01.wav");
-  } // end of constructor =========================================
+    this.ping = new Audio("public/sounds/tin-ping.wav");
+    this.chime = new Audio("public/sounds/water-drip.wav");
+  } // end of constructor  =========================================
 
   reset() {
     this.x = this.boardWidth / 2;
@@ -25,8 +26,7 @@ export default class Ball {
     goal(paddle){
         paddle.score++;
         this.reset();
-        console.log(paddle.score);
-    }
+  }
 
   wallCollision() {
     const hitLeft = this.x - this.radius <= 0;
@@ -99,10 +99,12 @@ export default class Ball {
     if(rightGoal){
         this.goal(paddle1);
         this.direction = -1;
+        this.chime.play();
     
     } else if(leftGoal){
         this.goal(paddle2);
         this.direction = 1;
+        this.chime.play();
     }
   } //end of render method
 } //end of class Ball
