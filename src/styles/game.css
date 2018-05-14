@@ -135,3 +135,18 @@ h2 {
 .showtime{
   color: red;
 }
+.controls {
+  display: flex;
+  justify-content: space-evenly;
+}
+.controls ul{
+  justify-content: column;
+}
+.controls-menu{
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+}
+.player1, .player2{
+  text-align: center;
+}
