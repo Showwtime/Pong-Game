@@ -11,8 +11,8 @@ export default class Game {
     this.width = width;
     this.height = height;
     this.gameElement = document.getElementById(this.element);
-    this.paddleWidth = 8;
-    this.paddleHeight = 56;
+    this.paddleWidth = 15;
+    this.paddleHeight = 70;
     this.boardGap = 8;
     this.radius = 8;
     this.pause = false;
@@ -49,9 +49,10 @@ export default class Game {
       "paddle2"
     );
 
-    this.score1 = new Score(this.width / 2 - 50, 30, 30);
-    this.score2 = new Score(this.width / 2 + 25, 30, 30);
-    this.winner = new Winner(this.width / 2 - 250 , 150, 40);
+    this.score1 = new Score(this.width / 2 - 80, 30, 30);
+    this.score2 = new Score(this.width / 2 + 55, 30, 30);
+    this.winner = new Winner(this.width / 2 - 250 , 225);
+    this.winner2 = new Winner(this.width / 2 - 250 , 70);
     this.gameover = new Audio("public/sounds/gameover.wav");
     
     this.ball1 = new Ball(
@@ -97,8 +98,9 @@ export default class Game {
     this.ball1.render(svg, this.paddle1, this.paddle2);
     this.ball2.render(svg, this.paddle1, this.paddle2);
 
-    if(this.paddle1.score === 10 || this.paddle2.score === 10){
+    if(this.paddle1.score === 2 || this.paddle2.score === 2){
       this.winner.render(svg);
+      this.winner2.render(svg);
       this.pause = true;
       this.gameover.play();
     }
