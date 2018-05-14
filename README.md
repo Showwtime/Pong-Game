@@ -36,3 +36,5 @@ A basic pong game using SVGs.
 * Extra Ball
 * Changed paddle collision, goal, game over sounds
 * Added "You Win!" message when player score = 10
+
+# Use npm run start to view proper project version
