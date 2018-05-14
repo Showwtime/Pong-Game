@@ -8,61 +8,68 @@ export default class Paddle {
     y,
     up,
     down,
-    right,
-    left,
-    xleft,
-    xright
-  ) {
+    paddleright,
+    paddleleft,
+    paddle
+  ) 
+  {
     this.boardHeight = boardHeight;
     this.width = width;
     this.height = height;
     this.x = x;
     this.y = y;
-    this.speed = 16;
+    this.speed = 10;
     this.score = 0;
-    this.xleft = xleft;
-    this.xright = xright;
-    document.addEventListener("keydown", event => {
-      switch (event.key) {
-        case up:
-          this.up();
-          break;
-        case down:
-          this.down();
-          break;
-        case right:
-          this.right();
-          break;
-        case left:
-          this.left();
-          break;
-      }
-    });
-  } //end of constructor ==============================================
+    this.paddle = paddle;
+    this.keyState = {};
 
-  // Paddle movement ================================================
-  up() {
-    this.y = Math.max(5, this.y - this.speed);
-  }
-
-  down() {
-    this.y = Math.min(this.boardHeight - this.height - 5, this.y + this.speed);
-  }
-
-  right() {
-    // this.xright = Math.max( +500, this.x - this.speed);
-    if (!this.x >= 0) {
-      this.x += this.speed;
-    }
-  }
+      document.addEventListener('keydown', event => {
+        this.keyState[event.key || event.which] = true;
+      }, true);
   
-  left() {
-    // this.xleft = Math.min(5, this.x + this.speed);
-    if (!this.x <= 0) {
-      this.x -= this.speed;
+      document.addEventListener('keyup', event => {
+        this.keyState[event.key || event.which] = false;
+      }, true);
+
+      document.addEventListener('keyleft', event => {
+        this.keyState[event.key || event.which] = true;
+      }, true);
+  
+      document.addEventListener('keyright', event => {
+        this.keyState[event.key || event.which] = false;
+      }, true);
+
+
+              
+  }// end of constructor ===========================================
+
+    up() {
+        this.y = Math.max(0, this.y - this.speed);
     }
-  }
-  // Ball collision with paddles =======================================
+
+    down() {
+        this.y = Math.min(this.boardHeight - this.height, this.y + this.speed );
+    }
+
+    paddle1left() {
+        this.x = Math.max(this.width, this.x - this.speed);
+    }
+
+    paddle1right() {
+        this.x = Math.min(112, this.x + this.speed);
+    }
+
+    paddle2left() {
+        this.x = Math.max(400, this.x - this.speed);
+    }
+
+    paddle2right() {
+        this.x = Math.min(500 - this.width, this.x + this.speed);
+    }
+ 
+  //end of constructor ==============================================
+
+  // Ball collision with paddles ====================================
   coordinates(x, y, width, height) {
     let leftX = x;
     let rightX = x + width;
@@ -72,6 +79,32 @@ export default class Paddle {
   }
 
   render(svg) {
+  // paddle 1 movement ==============================================
+  if (this.keyState["a"] && this.paddle === 'paddle1') {
+      this.up();
+  }
+  if (this.keyState["z"] && this.paddle === "paddle1") {
+      this.down();
+  }
+  if (this.keyState["Shift"] && this.paddle === "paddle1") {
+      this.paddle1left();
+  }
+  if (this.keyState["x"] && this.paddle === "paddle1") {
+      this.paddle1right();
+  }
+  // paddle 2 movement ==============================================
+  if (this.keyState["ArrowUp"] && this.paddle === "paddle2") {
+      this.up();
+  }
+  if (this.keyState["ArrowDown"] && this.paddle === "paddle2") {
+      this.down();
+  }
+  if (this.keyState["ArrowLeft"] && this.paddle === "paddle2") {
+      this.paddle2left();
+  }
+  if (this.keyState["ArrowRight"] && this.paddle === "paddle2") {
+      this.paddle2right();
+  }
     // Paddle
     let paddle = document.createElementNS(SVG_NS, "rect");
     paddle.setAttributeNS(null, "width", this.width);

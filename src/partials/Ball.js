@@ -9,6 +9,7 @@ export default class Ball {
     this.reset();
     this.ping = new Audio("public/sounds/tin-ping.wav");
     this.chime = new Audio("public/sounds/water-drip.wav");
+    // this.gameover = new Audio("public/sounds/gameover.wav");
   } // end of constructor  =========================================
 
   reset() {
@@ -16,7 +17,7 @@ export default class Ball {
     this.y = this.boardHeight / 2;
     // experiment with these values to change ball movement
     this.vy = 0;
-    // try FOR loop instead of "while" for fun
+    // try FOR loop instead of "while", for fun
     while (this.vy === 0) {
       this.vy = Math.floor(Math.random() * 10 - 5);
     }
@@ -45,7 +46,7 @@ export default class Ball {
   paddleCollision(paddle1, paddle2) {
 
     
-       // if moving toward the right end ======================================
+       // if moving toward the right end ================================
     if (this.vx > 0) {
         let paddle = paddle2.coordinates(paddle2.x, paddle2.y, paddle2.width, paddle2.height);
         let [leftX, rightX, topY, bottomY] = paddle;
@@ -61,7 +62,7 @@ export default class Ball {
     }
      else {
 
-           // if moving toward the right end ======================================
+           // if moving toward the right end ============================
         let paddle = paddle1.coordinates(paddle1.x, paddle1.y, paddle1.width, paddle1.height);
         let [leftX, rightX, topY, bottomY] = paddle;
         // right edge of the ball is <= left edge of the paddle
@@ -81,7 +82,7 @@ export default class Ball {
     this.x += this.vx;
     this.y += this.vy;
 
-    //Ball
+    //Ball =============================================================
     let ball = document.createElementNS(SVG_NS, "circle");
     ball.setAttributeNS(null, "r", this.radius);
     ball.setAttributeNS(null, "cx", this.x);
@@ -92,7 +93,7 @@ export default class Ball {
     this.wallCollision();
     this.paddleCollision(paddle1, paddle2);
 
-    //Detect Goal =======================================================
+    //Detect Goal ======================================================
     const rightGoal = this.x + this.radius >= this.boardWidth;
     const leftGoal = this.x - this.radius <= 0;
 
@@ -106,5 +107,6 @@ export default class Ball {
         this.direction = 1;
         this.chime.play();
     }
+
   } //end of render method
 } //end of class Ball

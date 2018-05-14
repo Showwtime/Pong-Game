@@ -25,7 +25,14 @@ A basic pong game using SVGs.
 * shift: left
 
 **Player 2:**
-* ▲ : up
+* ▲: up
 * ▼: down
 * left-arrow: left
 * right-arrow: right
+
+
+**Stretch Goals**
+* Paddles move left and right
+* Extra Ball
+* Changed paddle collision, goal, game over sounds
+* Added "You Win!" message when player score = 10

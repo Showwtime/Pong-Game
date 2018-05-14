@@ -3,6 +3,7 @@ import Board from "./Board";
 import Paddle from "./Paddle";
 import Ball from "./Ball";
 import Score from "./Score";
+import Winner from "./Winner";
 
 export default class Game {
   constructor(element, width, height) {
@@ -15,7 +16,7 @@ export default class Game {
     this.boardGap = 8;
     this.radius = 8;
     this.pause = false;
-    //====================================================================
+
 
     this.board = new Board(
       this.width, 
@@ -31,7 +32,8 @@ export default class Game {
       KEYS.a,
       KEYS.z,
       KEYS.x,
-      KEYS.shift
+      KEYS.shift,
+      "paddle1"
     );
 
     this.paddle2 = new Paddle(
@@ -43,38 +45,43 @@ export default class Game {
       KEYS.up,
       KEYS.down,
       KEYS.right,
-      KEYS.left
+      KEYS.left,
+      "paddle2"
     );
 
     this.score1 = new Score(this.width / 2 - 50, 30, 30);
     this.score2 = new Score(this.width / 2 + 25, 30, 30);
-
+    this.winner = new Winner(this.width / 2 - 250 , 150, 40);
+    this.gameover = new Audio("public/sounds/gameover.wav");
+    
     this.ball1 = new Ball(
-      this.radius, 
-      this.width, 
-      this.height
-    );
-
-      this.ball2 = new Ball(
         this.radius, 
         this.width, 
         this.height
     );
 
+    this.ball2 = new Ball(
+      this.radius, 
+      this.width, 
+      this.height
+    );
+
+    // Pause =====================================================
     document.addEventListener("keydown", event => {
       if (event.key == KEYS.spaceBar) {
         this.pause = !this.pause;
       }
     });
-  } // end of constructor
+  
+  } // end of constructor ========================================
 
   render() {
     if (this.pause) {
       return;
     }
-    // Fix to clear element
+    // Fix to clear html before rendering each frame
     this.gameElement.innerHTML = "";
-    // Renders basic SVG view
+    // Renders basic SVG
     let svg = document.createElementNS(SVG_NS, "svg");
     svg.setAttributeNS(null, "width", this.width);
     svg.setAttributeNS(null, "height", this.height);
@@ -89,6 +96,11 @@ export default class Game {
     this.paddle2.render(svg);
     this.ball1.render(svg, this.paddle1, this.paddle2);
     this.ball2.render(svg, this.paddle1, this.paddle2);
-    
+
+    if(this.paddle1.score === 10 || this.paddle2.score === 10){
+      this.winner.render(svg);
+      this.pause = true;
+      this.gameover.play();
+    }
   }
 }
