@@ -98,7 +98,7 @@ export default class Game {
     this.ball1.render(svg, this.paddle1, this.paddle2);
     this.ball2.render(svg, this.paddle1, this.paddle2);
 
-    if(this.paddle1.score === 2 || this.paddle2.score === 2){
+    if(this.paddle1.score === 10 || this.paddle2.score === 10){
       this.winner.render(svg);
       this.winner2.render(svg);
       this.pause = true;
